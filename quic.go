@@ -140,6 +140,7 @@ func (tr *quicTransporter) initSession(addr net.Addr, conn net.PacketConn) (*qui
 			quic.Version1,
 			quic.Version2,
 		},
+		DisablePathManager: true,
 
 		InitialStreamReceiveWindow:     config.ReceiveWindowConn,
 		MaxStreamReceiveWindow:         config.ReceiveWindowConn,
@@ -217,6 +218,7 @@ func QUICListener(addr string, config *QUICConfig) (Listener, error) {
 			quic.Version1,
 			quic.Version2,
 		},
+		DisablePathManager: true,
 
 		InitialStreamReceiveWindow:     config.ReceiveWindowConn,
 		MaxStreamReceiveWindow:         config.ReceiveWindowConn,
