@@ -16,7 +16,7 @@ import (
 )
 
 type quicSession struct {
-	session quic.EarlyConnection
+	session *quic.Conn
 }
 
 func (session *quicSession) GetConn() (*quicConn, error) {
@@ -284,7 +284,7 @@ func (l *quicListener) listenLoop(bps uint64) {
 	}
 }
 
-func (l *quicListener) sessionLoop(session quic.Connection) {
+func (l *quicListener) sessionLoop(session *quic.Conn) {
 	log.Logf("[quic] %s <-> %s", session.RemoteAddr(), session.LocalAddr())
 	defer log.Logf("[quic] %s >-< %s", session.RemoteAddr(), session.LocalAddr())
 
@@ -327,7 +327,7 @@ func (l *quicListener) Close() error {
 }
 
 type quicConn struct {
-	quic.Stream
+	*quic.Stream
 	laddr net.Addr
 	raddr net.Addr
 }
